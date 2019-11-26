@@ -36,7 +36,7 @@ cut -f4- mre_window_6w_cerebellum1 >mre_window_6w_cerebellum1_cut
 ##combine genomic and methylation features
 #coord,dist_cgi,cpg_num, gc_content,medip,mre site, mre,hmcSeal
 #add cortex_gcContent_window2_cut (change)
-paste $PWD/$1/cpg_no_chrM $PWD/$4/cortex_gcContent_window2_cut $PWD/$4/cpg_dist_cgi $PWD/$4/cpg_num_window_final medip_window_6w_cerebellum1_cut $PWD/$1/data_mreSite_final mre_window_6w_cerebellum1_cut hmcSeal_window_6w_cerebellum1_cut >data_feature
+paste $PWD/$1/cpg_no_chrM $PWD/$4/cortex_gcContent_window2_cut $PWD/$4/cpg_dist_cgi $PWD/$4/cpg_num_window_final medip_window_6w_cerebellum1_cut $PWD/$4/data_mreSite_final mre_window_6w_cerebellum1_cut hmcSeal_window_6w_cerebellum1_cut >data_feature
 cut -f4- data_feature >data_feature_cut
 Rscript $PWD/src/convert_cpgNum_to_cpgDensity.R data_feature_cut data_final 
 cut -f1-3 data_feature >data_final_coord
