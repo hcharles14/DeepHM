@@ -166,11 +166,11 @@ all_coord_pred_hmc_mc: predicted 5hmc and 5mc levels. Each column is chr, start,
 
 Scripts:
 
-a.process data for new dataset. Input variables are same as above.
+1).process data for new dataset. Input variables are same as above.
 
 bash process_methylation_data.sh mm9_folder data_folder data_process_folder genome_process_folder
 
-b.predict data for new dataset using trained model. Input variables are same as above.
+2).predict data for new dataset using trained model. Input variables are same as above.
 
 bash predict_model.sh train_folder cpg_model dna_model joint_model pred_folder data_process_folder data_tune_folder mm9_folder genome_process_folder
 
