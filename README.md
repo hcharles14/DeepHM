@@ -69,7 +69,7 @@ mm9_folder: genome folder which stores mm9 data
 
 4: train cpg and dna model .
 
-Script: bash train_cpg_dna_model.sh data_tune_folder train_folder mm9_folder
+Script: bash train_cpg_dna_model.sh data_tune_folder train_folder genome_process_folder
 
 Inputs:
 
@@ -77,14 +77,13 @@ data_tune_folder: tuned data folder which stores output data from step 3
 
 train_folder: output folder where training data will be stored  
 
-mm9_folder: genome folder which stores mm9 data
-
+genome_process_folder: processed genome folder which stores output data from step 1
 
 
 
 5: train joint model .
 
-Script: bash train_joint_model.sh train_folder cpg_model dna_model mm9_folder
+Script: bash train_joint_model.sh train_folder cpg_model dna_model genome_process_folder
 
 Inputs:
 
@@ -94,14 +93,13 @@ cpg_model: trained cpg model from step 4
 
 dna_model: trained dna model from step 4  
 
-mm9_folder: genome folder which stores mm9 data
-
+genome_process_folder: processed genome folder which stores output data from step 1
 
 
 
 6: predict from cpg, dna and joint model . For predicting on current dataset, use following script.
 
-Script: bash predict_model.sh train_folder cpg_model dna_model joint_model pred_folder data_process_folder data_tune_folder mm9_folder
+Script: bash predict_model.sh train_folder cpg_model dna_model joint_model pred_folder data_process_folder data_tune_folder mm9_folder genome_process_folder
 
 Inputs:
 
@@ -121,7 +119,7 @@ data_tune_folder: tuned data folder which stores output data from step 3
 
 mm9_folder: genome folder which stores mm9 data
 
-
+genome_process_folder: processed genome folder which stores output data from step 1
 
 
 7: predict from cpg, dna and joint model . For predicting on new dataset, use following scripts.
@@ -134,7 +132,7 @@ bash process_methylation_data.sh mm9_folder data_folder data_process_folder geno
 
 b.predict data for new dataset using trained model. Input variables are same as above.
 
-bash predict_model.sh train_folder cpg_model dna_model joint_model pred_folder data_process_folder data_tune_folder mm9_folder
+bash predict_model.sh train_folder cpg_model dna_model joint_model pred_folder data_process_folder data_tune_folder mm9_folder genome_process_folder
 
 
 

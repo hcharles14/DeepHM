@@ -3,6 +3,8 @@ mkdir $PWD/$2
 cd $PWD/$2
 #gc percent
 python3 $PWD/src/extract_feature_from_bp3.py $PWD/$1/gc5Base.sort.bedGraph $PWD/$1/cpg_no_chrM $PWD/$1/mm9_chrom_sizes cortex_gcContent_window2
+#remove first 5 column (change)
+cut -f5- cortex_gcContent_window2 cortex_gcContent_window2_cut
 
 #cpg num at each window
 python3 $PWD/src/generate_cpg_window.py $PWD/$1/cpg_no_chrM cpg_window
@@ -15,3 +17,5 @@ bedtools intersect -a $PWD/$1/cpg_no_chrM -b $PWD/$1/cpgIsland.bed -wao -sorted 
 cut -f1-3,7 cpg_inter_cgi >cpg_inter_cgi_cut
 python3 $PWD/src/cal_dist_to_cgi.py cpg_inter_cgi_cut cpg_dist_cgi
 
+#genome encoding (add)
+python3 -u $PWD/src/create_genome_encoding2.py $PWD/$1/mm9.fa mm9_genome_encoding

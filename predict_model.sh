@@ -11,7 +11,7 @@ cp $PWD/$1/$2* .
 cp $PWD/$1/$3* .
 cp $PWD/$1/$4* .
 
-python3 -u $PWD/src/continue_training_pred.py all_label1 all_label2 $4 $PWD/$1/train_small.npz all_data.npz $3 $4 $PWD/$8/mm9_genome_encoding.npz
+python3 -u $PWD/src/continue_training_pred.py all_label1 all_label2 $4 $PWD/$1/train_small.npz all_data.npz $3 $4 $PWD/$9/mm9_genome_encoding.npz
 
 cut -f2 all_label1 >all_label1_cut
 cut -f2 all_label2 >all_label2_cut
