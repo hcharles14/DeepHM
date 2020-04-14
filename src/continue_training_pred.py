@@ -250,6 +250,21 @@ def main(unused_argv):
             epoch_average_concordance1.append(np.mean(average_concordance1))
             epoch_average_concordance2.append(np.mean(average_concordance2))
         print("final average test loss", np.mean(epoch_average_loss), 'label1 concordance',np.mean(epoch_average_concordance1),'label2 concordance',np.mean(epoch_average_concordance2),sep='\t')
+
+        #pred for the last incomplete batch (added 4-13-2020)
+        if len_test>(i+1)*batch_size:
+            sample=range(len_test-batch_size,len_test)
+            data_test_x2_seq=convert_coord_to_seq(data_test_x2[sample,:])
+            for j in range(1): #each num_steps
+                rnn_outputs_pred=rnn_model.run(data_test_x1[sample,(j*num_steps*num_feature):((j+1)*num_steps*num_feature)])
+                cnn_outputs_pred=cnn_model.run(data_test_x2_seq[:,(j*num_steps*num_feature_dna):((j+1)*num_steps*num_feature_dna)])
+                feed_dict={rnn_x1: rnn_outputs_pred, cnn_x2: cnn_outputs_pred, y1: data_test_y1[sample,(j*num_steps):((j+1)*num_steps)], y2: data_test_y2[sample,(j*num_steps):((j+1)*num_steps)]}
+                y1_pred_test,y1_reshaped_test,test_diff1,y2_pred_test,y2_reshaped_test,test_diff2,test_loss_ = sess.run([y1_pred,y1_reshaped,diff1,y2_pred,y2_reshaped,diff2,joint_loss],
+                                                                             feed_dict) 
+                for k in range(((i+2)*batch_size-len_test),len(y1_pred_test)):
+                    print(y1_reshaped_test[k],y1_pred_test[k],sep='\t',file=pred_object1)
+                    print(y2_reshaped_test[k],y2_pred_test[k],sep='\t',file=pred_object2)
+
         pred_object1.close()  
         pred_object2.close()              
 
