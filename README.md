@@ -10,7 +10,8 @@ This folder "DeepHM" contains the code for running DeepH&M in the server. Downlo
 
 **a. After downloading the code in the folder, download mm9 datasets (for processing genomic features) and sample datasets (MeDIP-seq, MRE-seq, hmC-Seal, TAB-seq and WGBS) and MethPipe tool at the link http://wangftp.wustl.edu/~yhe/DeepHM_datasets/dataset.tar.gz. Uncompress the compressed .tar.gz file in DeepHM folder using command "tar -xzvf dataset.tar.gz". This will generate three folders: mm9, data, MethPipe. Folder mm9 lists files for processing genomic features for mm9. Folder data lists sample data for MeDIP-seq, MRE-seq, hmC-Seal, TAB-seq and WGBS data. Folder MethPipe lists the tool for running mlml. Below list detailed descriptions for files in folder mm9 and data.**
 
-**1.folder mm9. The default species is mm9. If doing training for a different species, you need to provide following files for that species.**
+
+**1. folder mm9. The default species is mm9. If doing training for a different species, you need to provide following files for that species.**
 
 cpgIsland.bed: cpg island coordinates. Each column lists the coordinate for a cpg island (chr, start, end)
 
@@ -33,7 +34,8 @@ CCGC_sites.bed: coordinates for CCGC restriction sites
 CCGG_sites.bed: coordinates for CCGG restriction sites
 
 
-**2.folder data. All files are sorted.**
+
+**2. folder data. All files are sorted.**
 
 hmC-Seal.bedGraph: bedGraph file for hmc-seal data. Each colum lists the coordinate and number of reads overlapping the interval
 
@@ -60,6 +62,7 @@ Run following scripts in DeepHM folder by first setting
 export WD=$(pwd) 
 ```
 which set $WD a global variable refering to DeepHM directory.
+
 
 
 **1: process genomic features for mm9 or others**
@@ -121,6 +124,7 @@ genome_process_folder: processed genome folder which stores output data from ste
 ```
 
 
+
 **5: train joint model .**
 ```
 Script: bash train_joint_model.sh train_folder cpg_model dna_model genome_process_folder
@@ -135,6 +139,7 @@ dna_model: trained dna model from step 4
 
 genome_process_folder: processed genome folder which stores output data from step 1
 ```
+
 
 
 **6: predict from cpg, dna and joint model . For predicting on current dataset, use following script.**
@@ -178,6 +183,9 @@ bash process_methylation_data.sh mm9_folder data_folder data_process_folder geno
 ```
 bash predict_model.sh train_folder cpg_model dna_model joint_model pred_folder data_process_folder data_tune_folder mm9_folder genome_process_folder
 ```
+
+
+
 **d. An example to train DeepHM model using provided mm9 and data folder:**
 ```
 bash process_genome.sh mm9 genome_process_folder
