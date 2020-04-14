@@ -69,9 +69,10 @@ with open(feature_file) as f:
 				pre_chr=exist_chr[-2]
 				for x in range(pre_coord,chr_size_dict[pre_chr]): #for downstream of last coord, 0
 					feature.append(0)
-				for each_coord in coord_chr[pre_chr]: #for each cpg in one chr
-					mean_feature=cal_mean_feature(feature,each_coord,chr_size_dict[pre_chr])
-					print(pre_chr+'\t'+str(each_coord)+'\t'+str(each_coord+2)+'\t'+ ''.join([str(x)+'\t' for x in mean_feature[:-1]])+str(mean_feature[-1]),file=outobject)
+				if pre_chr in coord_chr: #cpg coord file contains that chromosome in feature file (fix bug 4-13-2020)
+					for each_coord in coord_chr[pre_chr]: #for each cpg in one chr
+						mean_feature=cal_mean_feature(feature,each_coord,chr_size_dict[pre_chr])
+						print(pre_chr+'\t'+str(each_coord)+'\t'+str(each_coord+2)+'\t'+ ''.join([str(x)+'\t' for x in mean_feature[:-1]])+str(mean_feature[-1]),file=outobject)
 				#rest feature after one chr is finished and add data
 				feature=[]
 				for x in range(int(l[1])-1): #for upstream of the first coord, give a feature of 0
@@ -83,9 +84,10 @@ with open(feature_file) as f:
 pre_chr=exist_chr[-1]
 for x in range(pre_coord,chr_size_dict[pre_chr]): #for downstream of last coord, 0
 	feature.append(0)
-for each_coord in coord_chr[pre_chr]: #for each cpg in one chr
-	mean_feature=cal_mean_feature(feature,each_coord,chr_size_dict[pre_chr])
-	print(pre_chr+'\t'+str(each_coord)+'\t'+str(each_coord+2)+'\t'+ ''.join([str(x)+'\t' for x in mean_feature[:-1]])+str(mean_feature[-1]),file=outobject)
+if pre_chr in coord_chr: 
+	for each_coord in coord_chr[pre_chr]: #for each cpg in one chr
+		mean_feature=cal_mean_feature(feature,each_coord,chr_size_dict[pre_chr])
+		print(pre_chr+'\t'+str(each_coord)+'\t'+str(each_coord+2)+'\t'+ ''.join([str(x)+'\t' for x in mean_feature[:-1]])+str(mean_feature[-1]),file=outobject)
 
 
 
