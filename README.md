@@ -12,7 +12,7 @@ This folder "DeepHM" contains the code for running DeepH&M in the server. Downlo
 
 
 **1. folder mm9. The default species is mm9. If doing training for a different species, you need to provide following files for that species.**
-
+```
 cpgIsland.bed: cpg island coordinates. Each column lists the coordinate for a cpg island (chr, start, end)
 
 hmc_interval: hmc intervals used for dividing cpgs into multiple windows for data balance
@@ -32,11 +32,11 @@ GCGC_sites.bed: coordinates for GCGC restriction sites
 CCGC_sites.bed: coordinates for CCGC restriction sites
 
 CCGG_sites.bed: coordinates for CCGG restriction sites
-
+```
 
 
 **2. folder data. All files are sorted.**
-
+```
 hmC-Seal.bedGraph: bedGraph file for hmc-seal data. Each colum lists the coordinate and number of reads overlapping the interval
 
 MeDIP.bedGraph: bedGraph file for medip-seq data
@@ -46,7 +46,7 @@ MRE.bed: bed file for mre-seq data. Each column is a read
 TAB_data: tab-seq data. Each colum lists coordinates, 5hmC level, coverage
 
 WGBS_data: wgbs data. Each colum lists coordinates, total methylation level, coverage
-
+```
 
 
 
