@@ -55,7 +55,11 @@ WGBS_data: wgbs data. Each colum lists coordinates, total methylation level, cov
 
 **c. After finishing the setup, follow the steps below to run DeepH&M.**
 
-Run following scripts in DeepHM folder by first setting ' export WD=$(pwd) ', which set $WD a global variable refering to DeepHM directory.
+Run following scripts in DeepHM folder by first setting 
+```
+export WD=$(pwd) 
+```
+which set $WD a global variable refering to DeepHM directory.
 
 
 **1: process genomic features for mm9 or others**
