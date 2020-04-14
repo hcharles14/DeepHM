@@ -50,7 +50,7 @@ WGBS_data: wgbs data. Each colum lists coordinates, total methylation level, cov
 
 
 
-**b. Dependencies for DeepHM include TensorFlow 1.0, BedTools, bash, python3 and R. Please make sure these are installed and working before trying to run DeepHM.**
+**b. Dependencies for DeepHM include TensorFlow 1.0 (using GPU server), BedTools, bash, python3 and R. Please make sure these are installed and working before trying to run DeepHM.**
 
 
 
