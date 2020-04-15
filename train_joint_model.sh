@@ -1,6 +1,7 @@
 ##joint model
 cd $WD/$1
 #use the best epoch from rnn and cnn for below training
+export CUDA_VISIBLE_DEVICES="1"
 python3 -u $WD/src/train_model_jointModule.py joint_pred2_label1 joint_pred2_label2 joint_model train_small.npz val_small.npz $2 $3 $WD/$4/mm9_genome_encoding.npz
 
 python3 -u $WD/src/continue_training_jointModule.py joint_pred3_label1 joint_pred3_label2 joint_model train_large.npz val_large.npz $2 $3 $WD/$4/mm9_genome_encoding.npz >joint_pred3_out
