@@ -176,7 +176,7 @@ def convert_coord_to_seq(data_array):
         all_list.append(one_list)
     return np.array(all_list)
 
-def train_network(g, num_epochs, num_steps = 1, batch_size = 50, verbose = True):
+def train_network(g, num_epochs, min_test_loss_local, num_steps = 1, batch_size = 50, verbose = True):
     print('load data:')
     data_train = np.load(feat_file)
     len_train=len(data_train['y1'])
@@ -250,49 +250,49 @@ def train_network(g, num_epochs, num_steps = 1, batch_size = 50, verbose = True)
                 epoch_average_loss.append(np.mean(average_loss))
                 epoch_average_concordance1.append(np.mean(average_concordance1))
                 epoch_average_concordance2.append(np.mean(average_concordance2))
-                if verbose:                    
-                    print('batch:',i,"average training loss", np.mean(average_loss), 'label1 concordance',np.mean(average_concordance1), 'label2 concordance',np.mean(average_concordance2),sep='\t')
+                # if verbose:                    
+                #     print('batch:',i,"average training loss", np.mean(average_loss), 'label1 concordance',np.mean(average_concordance1), 'label2 concordance',np.mean(average_concordance2),sep='\t')
             print('epoch:',epoch,"average training loss", np.mean(epoch_average_loss), 'label1 concordance',np.mean(epoch_average_concordance1),'label2 concordance',np.mean(epoch_average_concordance2),sep='\t')
 
-            if epoch%10==0:
-                #for test data
-                print('\n','epoch:',epoch,' evaluate for test data.')
-                # data_test_x1=data_test['x1']
-                # data_test_x2=data_test['x2']
-                # data_test_y1=data_test['y1']
-                # data_test_y2=data_test['y2']
-                epoch_average_loss=[]
-                epoch_average_concordance1=[]
-                epoch_average_concordance2=[]
-                for i in range(int(len_test/batch_size)): #each batch
-                    average_loss=[]
-                    average_concordance1=[]
-                    average_concordance2=[]
-                    sample=range(i*batch_size,(i+1)*batch_size)
+            # if epoch%10==0:
+            #     #for test data
+            #     print('\n','epoch:',epoch,' evaluate for test data.')
+            #     # data_test_x1=data_test['x1']
+            #     # data_test_x2=data_test['x2']
+            #     # data_test_y1=data_test['y1']
+            #     # data_test_y2=data_test['y2']
+            #     epoch_average_loss=[]
+            #     epoch_average_concordance1=[]
+            #     epoch_average_concordance2=[]
+            #     for i in range(int(len_test/batch_size)): #each batch
+            #         average_loss=[]
+            #         average_concordance1=[]
+            #         average_concordance2=[]
+            #         sample=range(i*batch_size,(i+1)*batch_size)
                     
-                    for j in range(1): #each num_steps
+            #         for j in range(1): #each num_steps
                         
-                        feed_dict={g['x1']: data_test_x1[sample,(j*num_steps*num_feature):((j+1)*num_steps*num_feature)], g['y1']: data_test_y1[sample,(j*num_steps):((j+1)*num_steps)], g['y2']: data_test_y2[sample,(j*num_steps):((j+1)*num_steps)]}
-                        test_diff1,test_diff2,test_loss_ = sess.run([g['diff1'],g['diff2'],g['joint_loss']],
-                                                                                     feed_dict) 
-                        concordance1=round(sum([1 for x in test_diff1 if x<=0.1])/len(test_diff1),2)
-                        concordance2=round(sum([1 for x in test_diff2 if x<=0.1])/len(test_diff2),2)
-                        average_loss.append(test_loss_)
-                        average_concordance1.append(concordance1)
-                        average_concordance2.append(concordance2)
-                    #print(average_loss)
-                    print("test average loss", np.mean(average_loss), 'label1 concordance',np.mean(average_concordance1),'label2 concordance',np.mean(average_concordance2),sep='\t')
-                    epoch_average_loss.append(np.mean(average_loss))
-                    epoch_average_concordance1.append(np.mean(average_concordance1))
-                    epoch_average_concordance2.append(np.mean(average_concordance2))
-                print("final average test loss", np.mean(epoch_average_loss), 'label1 concordance',np.mean(epoch_average_concordance1),'label2 concordance',np.mean(epoch_average_concordance2),sep='\t')
-                print()
-                current_test_error=np.mean(epoch_average_loss)
-                if (previous_test_error-current_test_error)<=diff_threshold and epoch >=200:
-                    print('Test error is not decreasing in 10 epochs. Stop training.')
-                    break
-                else:
-                    previous_test_error=current_test_error
+            #             feed_dict={g['x1']: data_test_x1[sample,(j*num_steps*num_feature):((j+1)*num_steps*num_feature)], g['y1']: data_test_y1[sample,(j*num_steps):((j+1)*num_steps)], g['y2']: data_test_y2[sample,(j*num_steps):((j+1)*num_steps)]}
+            #             test_diff1,test_diff2,test_loss_ = sess.run([g['diff1'],g['diff2'],g['joint_loss']],
+            #                                                                          feed_dict) 
+            #             concordance1=round(sum([1 for x in test_diff1 if x<=0.1])/len(test_diff1),2)
+            #             concordance2=round(sum([1 for x in test_diff2 if x<=0.1])/len(test_diff2),2)
+            #             average_loss.append(test_loss_)
+            #             average_concordance1.append(concordance1)
+            #             average_concordance2.append(concordance2)
+            #         #print(average_loss)
+            #         print("test average loss", np.mean(average_loss), 'label1 concordance',np.mean(average_concordance1),'label2 concordance',np.mean(average_concordance2),sep='\t')
+            #         epoch_average_loss.append(np.mean(average_loss))
+            #         epoch_average_concordance1.append(np.mean(average_concordance1))
+            #         epoch_average_concordance2.append(np.mean(average_concordance2))
+            #     print("final average test loss", np.mean(epoch_average_loss), 'label1 concordance',np.mean(epoch_average_concordance1),'label2 concordance',np.mean(epoch_average_concordance2),sep='\t')
+            #     print()
+            #     current_test_error=np.mean(epoch_average_loss)
+            #     if (previous_test_error-current_test_error)<=diff_threshold and epoch >=200:
+            #         print('Test error is not decreasing in 10 epochs. Stop training.')
+            #         break
+            #     else:
+            #         previous_test_error=current_test_error
 
 
         #for test data
@@ -324,19 +324,23 @@ def train_network(g, num_epochs, num_steps = 1, batch_size = 50, verbose = True)
                     print(y1_reshaped[k],y1_pred[k],sep='\t',file=pred_object1)
                     print(y2_reshaped[k],y2_pred[k],sep='\t',file=pred_object2)
             #print(average_loss)
-            print("test average loss", np.mean(average_loss), 'label1 concordance',np.mean(average_concordance1),'label2 concordance',np.mean(average_concordance2),sep='\t')
+            #print("test average loss", np.mean(average_loss), 'label1 concordance',np.mean(average_concordance1),'label2 concordance',np.mean(average_concordance2),sep='\t')
             epoch_average_loss.append(np.mean(average_loss))
             epoch_average_concordance1.append(np.mean(average_concordance1))
             epoch_average_concordance2.append(np.mean(average_concordance2))
         print("final average test loss", np.mean(epoch_average_loss), 'label1 concordance',np.mean(epoch_average_concordance1),'label2 concordance',np.mean(epoch_average_concordance2),sep='\t')
-        pred_object1.close()  
-        pred_object2.close()             
 
+
+        #add 4-17-2020 YU He 
         # Creates a saver.
-        saver0 = tf.train.Saver()
-        saver0.save(sess, cwd+'/'+out_model)
-        # Generates MetaGraphDef.
-        saver0.export_meta_graph(cwd+'/'+out_model+'.meta')
+        if np.mean(epoch_average_loss)<min_test_loss_local:
+            min_test_loss_local=np.mean(epoch_average_loss)
+            min_test_result='final average test loss:' + str(np.mean(epoch_average_loss)) +'\t' +'label1 concordance:' + str(np.mean(epoch_average_concordance1)) +'\t' + 'label2 concordance:' + str(np.mean(epoch_average_concordance2))
+            saver0 = tf.train.Saver()
+            saver0.save(sess, cwd+'/'+out_model)
+            # Generates MetaGraphDef.
+            saver0.export_meta_graph(cwd+'/'+out_model+'.meta')
+        return min_test_loss_local
 
 def build_multilayer_lstm_graph_with_dynamic_rnn(
     batch_size = 50,
@@ -440,11 +444,16 @@ def build_multilayer_lstm_graph_with_dynamic_rnn(
 # build_multilayer_lstm_graph_with_dynamic_rnn()
 # print("It took", time.time() - t, "seconds to build the graph.")
 
-g = build_multilayer_lstm_graph_with_dynamic_rnn(batch_size,num_steps, learning_rate)
-t = time.time()
-train_network(g, num_epochs, num_steps , batch_size)
-print("It took", time.time() - t, "seconds to train ",num_epochs, " epochs" )
-
+#add codes to train 5 times and pick model that have best performance. 4-15-2020 yu
+min_test_loss=1000000
+for num_try in range(5):
+    print("\n\n\n")
+    print("Try training:"+str(num_try+1))
+    g = build_multilayer_lstm_graph_with_dynamic_rnn(batch_size,num_steps, learning_rate)
+    min_test_loss=train_network(g, num_epochs, min_test_loss,num_steps , batch_size)
+print('The minimal test loss from 5 training is: '+str(min_test_loss))
+pred_object1.close()  
+pred_object2.close()
 
 
 

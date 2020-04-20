@@ -165,8 +165,8 @@ def main(unused_argv):
                 epoch_average_loss.append(np.mean(average_loss))
                 epoch_average_concordance1.append(np.mean(average_concordance1))
                 epoch_average_concordance2.append(np.mean(average_concordance2))
-                if 1:                    
-                    print('batch:',i,"average training loss", np.mean(average_loss), 'label1 concordance',np.mean(average_concordance1), 'label2 concordance',np.mean(average_concordance2),sep='\t')
+                # if 1:                    
+                #     print('batch:',i,"average training loss", np.mean(average_loss), 'label1 concordance',np.mean(average_concordance1), 'label2 concordance',np.mean(average_concordance2),sep='\t')
             print('epoch:',epoch,"average training loss", np.mean(epoch_average_loss), 'label1 concordance',np.mean(epoch_average_concordance1),'label2 concordance',np.mean(epoch_average_concordance2),sep='\t')
 
             if epoch>0:
@@ -197,7 +197,7 @@ def main(unused_argv):
                         average_concordance1.append(concordance1)
                         average_concordance2.append(concordance2)
                     #print(average_loss)
-                    print("test average loss", np.mean(average_loss), 'label1 concordance',np.mean(average_concordance1),'label2 concordance',np.mean(average_concordance2),sep='\t')
+                    #print("test average loss", np.mean(average_loss), 'label1 concordance',np.mean(average_concordance1),'label2 concordance',np.mean(average_concordance2),sep='\t')
                     epoch_average_loss.append(np.mean(average_loss))
                     epoch_average_concordance1.append(np.mean(average_concordance1))
                     epoch_average_concordance2.append(np.mean(average_concordance2))
@@ -245,7 +245,7 @@ def main(unused_argv):
                     print(y1_reshaped_test[k],y1_pred_test[k],sep='\t',file=pred_object1)
                     print(y2_reshaped_test[k],y2_pred_test[k],sep='\t',file=pred_object2)
             #print(average_loss)
-            print("test average loss", np.mean(average_loss), 'label1 concordance',np.mean(average_concordance1),'label2 concordance',np.mean(average_concordance2),sep='\t')
+            #print("test average loss", np.mean(average_loss), 'label1 concordance',np.mean(average_concordance1),'label2 concordance',np.mean(average_concordance2),sep='\t')
             epoch_average_loss.append(np.mean(average_loss))
             epoch_average_concordance1.append(np.mean(average_concordance1))
             epoch_average_concordance2.append(np.mean(average_concordance2))
