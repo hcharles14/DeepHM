@@ -1,10 +1,10 @@
-##process genomic features like gc percent, cpg num, dist to cpg island
+##process genomic features like gc percent, cpg num, dist to cpg island,genome encoding, mre site
 mkdir $WD/$2
 cd $WD/$2
 #gc percent
-python3 $WD/src/extract_feature_from_bp3.py $WD/$1/gc5Base.sort.bedGraph $WD/$1/cpg_no_chrM $WD/$1/mm9_chrom_sizes cortex_gcContent_window2
+python3 $WD/src/extract_feature_from_bp3.py $WD/$1/gc5Base.sort.bedGraph $WD/$1/cpg_no_chrM $WD/$1/chrom_sizes gcContent_window
 #remove first 5 column (change)
-cut -f5- cortex_gcContent_window2 >cortex_gcContent_window2_cut
+cut -f5- gcContent_window >gcContent_window_cut
 
 #cpg num at each window
 python3 $WD/src/generate_cpg_window.py $WD/$1/cpg_no_chrM cpg_window
@@ -18,7 +18,7 @@ cut -f1-3,7 cpg_inter_cgi >cpg_inter_cgi_cut
 python3 $WD/src/cal_dist_to_cgi.py cpg_inter_cgi_cut cpg_dist_cgi
 
 #genome encoding (add)
-python3 -u $WD/src/create_genome_encoding2.py $WD/$1/mm9.fa mm9_genome_encoding
+python3 -u $WD/src/create_genome_encoding2.py $WD/$1/genomeSeq.fa genome_encoding
 
 #mre site (add)
 cat $WD/$1/ACGT_sites.bed $WD/$1/GCGC_sites.bed  $WD/$1/CCGC_sites.bed $WD/$1/CCGG_sites.bed >four_site.bed

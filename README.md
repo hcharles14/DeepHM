@@ -95,9 +95,9 @@ genome_process_folder: processed genome folder which stores output data from ste
 
 
 
-**3: select high cov data, normalize and balance data .**
+**3: select high coverage data, normalize and balance data .**
 ```
-Script: bash tune_data.sh data_process_folder data_tune_folder mm9_folder
+Script: bash tune_data.sh data_process_folder data_tune_folder mm9_folder tab_coverage wgbs_coverage
 
 Inputs:
 
@@ -106,6 +106,10 @@ data_process_folder: processed data folder which stores output data from step 2
 data_tune_folder: output folder where tuned data will be stored  
 
 mm9_folder: genome folder which stores mm9 data
+
+tab_coverage: coverage cutoff for picking high cov tab-seq data
+
+wgbs_coverage: coverage cutoff for picking high cov wgbs-seq data
 ```
 
 
@@ -121,6 +125,10 @@ data_tune_folder: tuned data folder which stores output data from step 3
 train_folder: output folder where training data will be stored  
 
 genome_process_folder: processed genome folder which stores output data from step 1
+
+Outputs:
+
+The best cpg_model and dna_model are printed in the end and required for step 5 and step 6 later.
 ```
 
 
@@ -133,11 +141,15 @@ Inputs:
 
 train_folder: training data folder which stores output data from step 4
 
-cpg_model: trained cpg model from step 4
+cpg_model: trained cpg model from step 4 output
 
-dna_model: trained dna model from step 4  
+dna_model: trained dna model from step 4 output
 
 genome_process_folder: processed genome folder which stores output data from step 1
+
+Outputs:
+
+The best joint_model are printed in the end and required for step 6 later.
 ```
 
 
@@ -150,11 +162,11 @@ Inputs:
 
 train_folder: training data folder which stores output data from step 4 
 
-cpg_model: trained cpg model from step 4 
+cpg_model: trained cpg model from step 4 output
 
-dna_model: trained cpg model from step 4 
+dna_model: trained cpg model from step 4 output
 
-joint_model: trained cpg model from step 5 
+joint_model: trained cpg model from step 5 output
 
 pred_folder: output folder where prediction data will be stored   
 
@@ -167,7 +179,7 @@ mm9_folder: genome folder which stores mm9 data
 genome_process_folder: processed genome folder which stores output data from step 1
 
 Outputs:
-all_coord_pred_hmc_mc: predicted 5hmc and 5mc levels. Each column is chr, start, end, predicted 5hmc, predicted 5mc
+all_coord_pred_mc_hmc_final: predicted 5mc and 5hmc levels. Each column is chr, start, end, predicted 5mc, predicted 5hmc
 ```
 
 
@@ -192,7 +204,7 @@ bash process_genome.sh mm9 genome_process_folder
 
 bash process_methylation_data.sh mm9 data data_process_folder genome_process_folder
 
-bash tune_data.sh data_process_folder data_tune_folder mm9
+bash tune_data.sh data_process_folder data_tune_folder mm9 25 20
 
 bash train_cpg_dna_model.sh data_tune_folder train_folder genome_process_folder
 
