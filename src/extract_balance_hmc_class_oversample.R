@@ -18,8 +18,10 @@ for (i in 1:nclass){
         }
         num_list[i]=sum(logic)
 }
+print('The number of cpg in hmc windows:')
 print(num_list)
 sample_num=median(num_list)
+print(paste('The median of above cpg numbers selected for balancing each hmc window is',sample_num))
 
 
 #get the coordinates of sampleed cpg
@@ -46,7 +48,6 @@ for (i in 1:nclass){
 combine_sort=sort(combine)
 #print(combine_sort)
 write.table(data[combine_sort,1:3],outfile,row.names=F,col.names=F,quote=F,sep='\t')
-summary(data[combine_sort,4])
 
 
 

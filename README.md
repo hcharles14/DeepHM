@@ -23,7 +23,7 @@ cpg_no_chrM: cpg coordinates (no ChrM). Each column lists the coordinate for a c
 
 gc5Base.sort.bedGraph: gc percent. Each column lists the coordinate and gc perecent for the interval (chr, start, end, gc_percent)
 
-chrom_sizes: chromosome size
+chrom_sizes: chromosome size. Each column lists chromosome name and chromosome size
 
 ACGT_sites.bed: coordinates for ACGT restriction sites
 
