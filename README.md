@@ -17,13 +17,13 @@ cpgIsland.bed: cpg island coordinates. Each column lists the coordinate for a cp
 
 hmc_interval: hmc intervals used for dividing cpgs into multiple windows for data balance
 
-mm9.fa: mm9 genome sequence
+genomeSeq.fa: mm9 genome sequence
 
 cpg_no_chrM: cpg coordinates (no ChrM). Each column lists the coordinate for a cpg (chr, start, end)
 
 gc5Base.sort.bedGraph: gc percent. Each column lists the coordinate and gc perecent for the interval (chr, start, end, gc_percent)
 
-mm9_chrom_sizes: chromosome size
+chrom_sizes: chromosome size
 
 ACGT_sites.bed: coordinates for ACGT restriction sites
 
