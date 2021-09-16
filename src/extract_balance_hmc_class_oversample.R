@@ -46,7 +46,6 @@ for (i in 1:nclass){
 
 #remove cpgs that does not have 5 + or - neighbor
 combine_sort=sort(combine)
-#print(combine_sort)
 write.table(data[combine_sort,1:3],outfile,row.names=F,col.names=F,quote=F,sep='\t')
 
 
