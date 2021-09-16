@@ -1,9 +1,7 @@
 def cal_mean_feature(feature,each_coord,chr_size): #cal mean feature in each consecutive window
 	dist_range=[-1000,-500,-250,-50,0,50,250,500,1000]
-	#dist_range=[-20,-10,0,10,20]
 	dist_range=[x+each_coord for x in dist_range]
 	mean_feature=[feature[each_coord]]
-	#print(dist_range,mean_feature)
 	for i in range(len(dist_range)-1):
 		start=max(0,dist_range[i])
 		end=min(dist_range[i+1],chr_size)
@@ -11,7 +9,6 @@ def cal_mean_feature(feature,each_coord,chr_size): #cal mean feature in each con
 			mean_feature.append(0)
 		else:
 			mean_feature.append(round(np.mean(feature[start:end]),3))
-		#print(start,end,mean_feature)
 	return mean_feature
 
 
@@ -27,13 +24,11 @@ outobject=open(out_file,'w')
 coord_chr={}
 with open(coord_file) as f:
 	for line in f:
-		#print(line)
 		l=line.rstrip().split()
 		if l[0] in coord_chr:
 			coord_chr[l[0]].append(int(l[1]))
 		else:
 			coord_chr[l[0]]=[int(l[1])]
-#print(coord_chr)
 
 #extract chr size
 chr_size_dict={}
@@ -41,7 +36,6 @@ with open(chr_size_file) as f:
 	for line in f:
 		l=line.rstrip().split()
 		chr_size_dict[l[0]]=int(l[1])
-#print(chr_size_dict)
 
 #read feature data for each chr and cal mean feature for the corresponding chr
 feature=[]
